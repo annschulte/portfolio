@@ -22,7 +22,7 @@ const projects = [
   {
     name: 'Sheep',
     description:
-      'High performance component library. Built using vite, storybook, radix, Tailwind',
+      'High performance component library. Built using Vite, Storybook, D3, Typescript',
     link: {
       href: 'https://github.com/annschulte/sheep',
       label: 'github.com',
@@ -74,11 +74,11 @@ export default function Projects() {
     <>
       <Head>
         <title>Projects - Ann Schulte</title>
-        <meta name="description" content="Things I’ve made trying." />
+        <meta name="description" content="Things I’ve made." />
       </Head>
       <SimpleLayout
         title="Things I’ve made."
-        intro="I’ve worked on tons of little projects over the years but these are the ones that I’m most proud of."
+        intro="I’ve worked little projects outside of work and here they are."
       >
         <ul
           role="list"
