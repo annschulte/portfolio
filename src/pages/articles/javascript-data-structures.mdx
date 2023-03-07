@@ -1,0 +1,485 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const meta = {
+  author: 'Ann Schulte',
+  date: '2023-02-01',
+  title: 'Javascript Data Structures',
+  description:
+    'A list of many of the javascript data structures and their functions.',
+}
+
+export default (props) => <ArticleLayout meta={meta} {...props} />
+
+## Array
+
+A JavaScript array is a dynamically-sized collection of elements, with the property that each element is uniquely identified by an integer key (called "index") starting from 0, can be of any type, and can be individually retrieved or modified. The side with the lowest index is the "start" / "beginning" of an array, and the side with the highest index the "end". Access an element by an index is O(1).
+
+Common Array Operations
+
+1. push(item) adds item to the end of array and returns the array length; amortized O(1)
+2. pop() removes and returns the last element of the array; amortized O(1)
+3. shift() removes and returns the first element of the array; O(n)
+4. unshift(item) adds item to the start of the array and returns the array length; O(n)
+5. splice(start_index, count_to_remove, add_item1, add_item2, ...) removes and returns count_to_remove item(s) from an array given its/their index and optionally replaces them with add_items; O(n)
+
+Arrays are useful when we have to store individual values and add/delete values from the end of the data structure.
+But when we need to add/delete from any part of it, there are other data structures that perform more efficiently.
+
+```js
+const numbers = [20, 6, 13, 5]
+// C-like for loop fetches elements using indices
+for (let i = 0; i < numbers.length; i++) {
+  const number = numbers[i]
+  console.log(number)
+}
+
+// forEach loop directly fetches elements and their indices
+numbers.forEach(function (item, index) {
+  console.log(`${item} ${index}`)
+})
+
+// for...of loops directly fetches elements
+for (const number of numbers) {
+  console.log(number)
+}
+```
+
+## Queue
+
+A queue is an ordered list of elements where an element is inserted at the end of the queue and is removed from the front of the queue.
+
+A queue works based on the first-in, first-out (FIFO) principle, which is different from a stack, which works based on the last-in, first-out (LIFO) principle.
+
+A queue has two main operations:
+
+1. Insert a new element at the end of the queue, which is called enqueue.
+2. Remove an element from the front of the queue, which is called dequeue.
+
+## Hash Table
+
+A hash table (or hash map) is a data structure that implements an associative array abstract data type, a structure that can map keys to values. For example, your name (the key) may be used as a unique identifier for your phone number (the value) in a phone book (the hash map). The common operations for working with your phone in a phone book would look like this:
+
+```js
+// Import HashTable class.
+import { HashTable } from './HashTable'
+
+// Create hash table instance.
+const phoneBook = new HashTable()
+
+// Add several contacts to the phone book.
+phoneBook.set('John Smith', '+112342345678')
+phoneBook.set('Bill Jones', '+111111111111')
+
+// Now we may access each contact's phone in O(1) time.
+phoneBook.get('John Smith') // => '+112342345678'
+phoneBook.get('Bill Jones') // => ''+111111111111'
+
+// Delete phone number.
+phoneBook.delete('John Smith')
+phoneBook.get('John Smith') // => undefined
+```
+
+Ideally, hash tables allow us to do all of these operations in O(1) time. Compare that with a Linked List which requires us to go through all the nodes in the list to fetch John Smith's phone number, with an O(n) lookup time.
+
+The most common example of a Hash Table in JavaScript is the Object data type, where you can pair the object's property value with a property key.
+
+In JavaScript, an object is a collection of key-value pairs.
+
+A typical JS object looks like this:
+
+```js
+const obj = {
+  prop1: "I'm",
+  prop2: 'an',
+  prop3: 'object',
+}
+```
+
+We use curly braces to declare the object. Then declare each key followed by a colon, and the corresponding value.
+
+An important thing to mention is that each key has to be unique within the object. You can't have two keys with the same name.
+
+Objects can store both values and functions. When talking about objects, values are called properties, and functions are called methods.
+
+But JavaScript's Object type is a special kind of Hash Table implementation for two reasons:
+
+It has properties added by the Object class. Keys you input may conflict and overwrite default properties inherited from the class.
+The size of the Hash Table is not tracked. You need to manually count how many properties are defined by the programmer instead of inherited from the prototype.
+For example, the Object prototype has the hasOwnProperty() method which allows you to check if a property is not inherited:
+
+```js
+const obj = {};
+obj.name = "Nathan";
+
+console.log(obj.hasOwnProperty("name")); // true
+JavaScript object inherited method call example
+JavaScript doesn't block an attempt to overwrite the hasOwnProperty() method, which may cause an error like this:
+
+const obj = {};
+obj.name = "Nathan";
+obj.hasOwnProperty = true;
+
+console.log(obj.hasOwnProperty("name"));
+// Error: obj.hasOwnProperty is not a function
+```
+
+JavaScript object inherited property gets overwritten
+To handle these shortcomings, JavaScript created another implementation of the Hash Table data structure which is called Map
+
+Just like Object, Map allows you to store key-value pairs inside the data structure. Here's an example of Map in action:
+
+```js
+const collection = new Map();
+
+collection.set("Nathan", "555-0182");
+collection.set("Jane", "555-0182");
+
+console.log(collection.get("Nathan")); // 555-0182
+console.log(collection.size); // 2
+JavaScript Map class is another implementation of Hash Table
+Unlike the Object type, Map requires you to use the set() and get() methods to define and retrieve any key-pair values that you want to be added to the data structure.
+
+You also can't overwrite Map inherited properties. For example, the following code tried to overwrite the size property value to false:
+
+const collection = new Map();
+
+collection.set("Nathan", "555-0182");
+collection["size"] = false;
+
+console.log(collection.get("size")); // undefined
+console.log(collection.size); // 1
+```
+
+Map type property can't be overwritten
+As you can see from the code above, you can't add a new entry to the Map object without using the set() method.
+
+The Map data structure is also iterable, which means you can loop over the data as follows:
+
+```js
+const myMap = new Map()
+
+myMap.set('Nathan', '555-0182')
+myMap.set('Jane', '315-0322')
+
+for (let [key, value] of myMap) {
+  con
+  sole.log(`${key} = ${value}`)
+}
+```
+
+Iterating through a Map object
+
+```js
+const obj = {
+  prop1: 'Hello!',
+  prop3: function () {
+    console.log("I'm a property dude!")
+  },
+}
+```
+
+To access properties you can use two different syntaxes, either object.property or object["property"]. To access methods we call object.method().
+
+```js
+console.log(obj.prop1) // "Hello!"
+console.log(obj["prop1"]) // "Hello!"
+obj.prop3() // "I'm a property dude!"
+The syntax to assign new values is quite similar:
+
+obj.prop4 = 125
+obj["prop5"] = "The new prop on the block"
+obj.prop6 = () => console.log("yet another example")
+
+console.log(obj.prop4) // 125
+console.log(obj["prop5"]) // "The new prop on the block"
+obj.prop6() // "yet another example"
+```
+
+Like arrays, in JavaScript objects come with many built-in methods that allow us to perform different operations and get information from a given object. A full list can be found here.
+
+Objects are a good way to group together data that have something in common or are somehow related. Also, thanks to the fact that property names are unique, objects come in handy when we have to separate data based on a unique condition.
+
+An example could be counting how many people like different foods:
+
+```js
+const obj = {
+  pizzaLovers: 1000,
+  pastaLovers: 750,
+  argentinianAsadoLovers: 12312312312313123,
+}
+```
+
+## Stacks
+
+Stacks are a data structure that store information in the form of a list. They allow only adding and removing elements under a LIFO pattern (last in, first out). In stacks, elements can't be added or removed out of order, they always have to follow the LIFO pattern.
+
+To understand how this works, imagine a stack of papers on top of your desk. You can only add more papers to the stack by placing them on top of all the others. And you can remove a paper from the stack only by taking the one that is on top of all the others. Last in, first out. LIFO.
+
+Stacks are useful when we need to make sure elements follow the LIFO pattern. Some examples of stack usage are:
+
+1. JavaScript's call stack.
+2. Managing function invocations in various programming languages.
+3. The undo/redo functionality many programs offer.
+4. There's more than one way to implement a stack, but probably the simplest is using an array with its push and pop methods. If we only use pop and push for adding and deleting elements, we'll always follow the LIFO pattern and so operate over it like a stack.
+
+Another way is to implement it like a list, which may look like this:
+
+```js
+// We create a class for each node within the stack
+class Node {
+  // Each node has two properties, its value and a pointer that indicates the node that follows
+  constructor(value) {
+    this.value = value
+    this.next = null
+  }
+}
+
+// We create a class for the stack
+class Stack {
+  // The stack has three properties, the first node, the last node and the stack size
+  constructor() {
+    this.first = null
+    this.last = null
+    this.size = 0
+  }
+  // The push method receives a value and adds it to the "top" of the stack
+  push(val) {
+    var newNode = new Node(val)
+    if (!this.first) {
+      this.first = newNode
+      this.last = newNode
+    } else {
+      var temp = this.first
+      this.first = newNode
+      this.first.next = temp
+    }
+    return ++this.size
+  }
+  // The pop method eliminates the element at the "top" of the stack and returns its value
+  pop() {
+    if (!this.first) return null
+    var temp = this.first
+    if (this.first === this.last) {
+      this.last = null
+    }
+    this.first = this.first.next
+    this.size--
+    return temp.value
+  }
+}
+
+const stck = new Stack()
+
+stck.push('value1')
+stck.push('value2')
+stck.push('value3')
+
+console.log(stck.first) /* 
+        Node {
+        value: 'value3',
+        next: Node { value: 'value2', next: Node { value: 'value1', next: null } }
+        }
+    */
+console.log(stck.last) // Node { value: 'value1', next: null }
+console.log(stck.size) // 3
+
+stck.push('value4')
+console.log(stck.pop()) // value4
+```
+
+The big O of stack methods is the following:
+
+Insertion - O(1)
+Removal - O(1)
+Searching - O(n)
+Access - O(n)
+
+## Queues
+
+Queues work in a very similar way to stacks, but elements follow a different pattern for add and removal. Queues allow only a FIFO pattern (first in, first out). In queues, elements can't be added or removed out of order, they always have to follow the FIFO pattern.
+
+To understand this, picture people making a queue to buy food. The logic here is that if you get the the queue first, you'll be the first to be served. If you get there first, you'll be the first out. FIFO.
+
+Some examples of queue usage are:
+
+1. Background tasks.
+2. Printing/task processing.
+
+Same as with queues, there's more than one way to implement a stack. But probably the simplest is using an array with its push and shift methods.
+
+If we only use push and shift for adding and deleting elements, we'll always follow the FIFO pattern and so operate over it like a queue.
+
+The big O of queue methods is the following:
+
+Insertion - O(1)
+Removal - O(1)
+Searching - O(n)
+Access - O(n)
+
+## Linked lists
+
+Linked lists are a type of data structure that store values in the form of a list. Within the list, each value is considered a node, and each node is connected with the following value in the list (or null in case the element is the last in the list) through a pointer.
+
+There are two kinds of linked lists, singly linked lists and doubly linked lists. Both work very similarly, but the difference is in singly linked lists each node has a single pointer that indicates the next node on the list. While in doubly linked lists, each node has two pointers, one pointing to the next node and another pointing to the previous node.
+
+The first element of the list is considered the head, and the last element is considered the tail. Like with arrays, the length property is defined as the number of elements the list contains.
+
+The main differences compared with arrays are the following:
+
+Lists don't have indexes. Each value only "knows" the values to which it's connected through pointers.
+Since lists don't have indexes, we can't access values randomly. When we want to access a value, we always have to look for it by iterating through the list starting from its head or tail.
+The good thing of not having indexes, is that insertion/deletion in any part of the list is more efficient than with arrays. We just have to redirect the pointers of the "neighbor" values, while in arrays, values need to be re-indexed.
+Like any data structure, different methods are implemented in order to operate over the data. The most common ones include: push, pop, unshift, shift, get, set, insert, remove, and reverse.
+
+## Tree
+
+A tree is a data structure consisting of a set of linked nodes that represent a hierarchical tree structure. Each node is linked to others via parent-children relationship. The first node in the tree is the root, whereas nodes without any children are the leaves.
+
+Each node in a tree data structure must have the following properties:
+
+1. key: The key of the node
+2. value: The value of the node
+3. parent: The parent of the node (null if there is none)
+4. children: An array of pointers to the node's children
+   The main operations of a tree data structure are:
+
+- insert: Inserts a node as a child of the given parent node
+- remove: Removes a node and its children from the tree
+- find: Retrieves a given node
+- preOrderTraversal: Traverses the tree by recursively traversing each node followed by its children
+- postOrderTraversal: Traverses the tree by recursively traversing each node's children followed by the node
+
+#### Implementation
+
+```js
+class TreeNode {
+  constructor(key, value = key, parent = null) {
+    this.key = key
+    this.value = value
+    this.parent = parent
+    this.children = []
+  }
+
+  get isLeaf() {
+    return this.children.length === 0
+  }
+
+  get hasChildren() {
+    return !this.isLeaf
+  }
+}
+
+class Tree {
+  constructor(key, value = key) {
+    this.root = new TreeNode(key, value)
+  }
+
+  *preOrderTraversal(node = this.root) {
+    yield node
+    if (node.children.length) {
+      for (let child of node.children) {
+        yield* this.preOrderTraversal(child)
+      }
+    }
+  }
+
+  *postOrderTraversal(node = this.root) {
+    if (node.children.length) {
+      for (let child of node.children) {
+        yield* this.postOrderTraversal(child)
+      }
+    }
+    yield node
+  }
+
+  insert(parentNodeKey, key, value = key) {
+    for (let node of this.preOrderTraversal()) {
+      if (node.key === parentNodeKey) {
+        node.children.push(new TreeNode(key, value, node))
+        return true
+      }
+    }
+    return false
+  }
+
+  remove(key) {
+    for (let node of this.preOrderTraversal()) {
+      const filtered = node.children.filter((c) => c.key !== key)
+      if (filtered.length !== node.children.length) {
+        node.children = filtered
+        return true
+      }
+    }
+    return false
+  }
+
+  find(key) {
+    for (let node of this.preOrderTraversal()) {
+      if (node.key === key) return node
+    }
+    return undefined
+  }
+}
+```
+
+Create a class for the TreeNode with a constructor that initializes the appropriate key, value, parent and children properties.
+
+1. Define an isLeaf getter, that uses Array.prototype.length to check if children is empty.
+2. Define a hasChildren getter, that is the reverse of the isLeaf getter.
+3. Create a class for the Tree with a constructor that initializes the root of the tree.
+4. Define a preOrderTraversal() generator method that traverses the tree in pre-order, using the yield\* syntax to recursively delegate traversal to itself.
+5. Define a postOrderTraversal() generator method that traverses the tree in post-order, using the yield\* syntax to recursively delegate traversal to itself.
+6. Define an insert() method, that uses the preOrderTraversal() method and Array.prototype.push() to add a new TreeNode to the tree.
+7. Define a remove() method, that uses the preOrderTraversal() method and Array.prototype.filter() to remove a TreeNode from the tree.
+8. Define a find() method, that uses the preOrderTraversal() method to retrieve the given node in the tree.
+
+```js
+const tree = new Tree(1, 'AB')
+
+tree.insert(1, 11, 'AC')
+tree.insert(1, 12, 'BC')
+tree.insert(12, 121, 'BG')
+;[...tree.preOrderTraversal()].map((x) => x.value)
+// ['AB', 'AC', 'BC', 'BCG']
+
+tree.root.value // 'AB'
+tree.root.hasChildren // true
+
+tree.find(12).isLeaf // false
+tree.find(121).isLeaf // true
+tree.find(121).parent.value // 'BC'
+
+tree.remove(12)
+;[...tree.postOrderTraversal()].map((x) => x.value)
+// ['AC', 'AB']
+```
+
+## Graph
+
+A Graph is a collection of vertices and edges that connect all or some of those vertices together.
+
+A Graph may be directed or undirected. In a directed graph each edge has a direction (like a one-way street). You may access an end-node from a start-node but not the other way around. In undirected graphs the edges don't have a specific direction (like a two-way street) and thus every two vertices that are connected together have access to each other.
+
+### Application Examples
+
+Maps applications use graphs to compute shortest paths between vertices (addresses, cities, locations).
+
+Social networks use graphs for friends suggestion algorithms.
+
+Package managers use graphs to calculate correct order of installing packages based on their dependencies.
+
+Search engines use graphs to analyze page relevance. In graphs used by search engines, the web-page is a vertex and the link from this web-page to another is directed edge.
+
+Network providers use graphs to analyze network traffic and security. In this case each vertex has an IP address and every edge represent the network packets that flow between different IP addresses.
+
+## Heaps
+
+Heaps are a type of tree that have some particular rules. There are two main types of heaps, MaxHeaps and MinHeaps. In MaxHeaps, parent nodes are always greater than its children, and in MinHeaps, parent nodes are always smaller than its children.
+
+In this data structure there're no guarantees between siblings, meaning that nodes at the same "level" don't follow any rule besides being higher/lower than their parent.
+
+Also, heaps are as compact as possible, meaning each level contains all the nodes it can contain with no empty spaces, and new children are put into the left spaces of the tree first.
+
+Heaps, and in particular binary heaps, are frequently used to implement priority queues, which at the same time are frequently used in well-known algorithms such as Dijkstra's path-finding algorithm.
+
+Priority queues are a type of data structure in which each element has an associated priority and elements with a higher priority are presented first.
