@@ -515,30 +515,6 @@ var map = {
 		"./src/pages/articles/javascript-data-structures.mdx",
 		"src_pages_articles_javascript-data-structures_mdx"
 	],
-	"./plexus-interview/binary-search.mdx": [
-		"./src/pages/articles/plexus-interview/binary-search.mdx",
-		"src_pages_articles_plexus-interview_binary-search_mdx"
-	],
-	"./plexus-interview/breadth-first.mdx": [
-		"./src/pages/articles/plexus-interview/breadth-first.mdx",
-		"src_pages_articles_plexus-interview_breadth-first_mdx"
-	],
-	"./plexus-interview/depth-first.mdx": [
-		"./src/pages/articles/plexus-interview/depth-first.mdx",
-		"src_pages_articles_plexus-interview_depth-first_mdx"
-	],
-	"./plexus-interview/heap.mdx": [
-		"./src/pages/articles/plexus-interview/heap.mdx",
-		"src_pages_articles_plexus-interview_heap_mdx"
-	],
-	"./plexus-interview/index.mdx": [
-		"./src/pages/articles/plexus-interview/index.mdx",
-		"src_pages_articles_plexus-interview_index_mdx"
-	],
-	"./plexus-interview/javascript-data-structures.mdx": [
-		"./src/pages/articles/plexus-interview/javascript-data-structures.mdx",
-		"src_pages_articles_plexus-interview_javascript-data-structures_mdx"
-	],
 	"./react-components.mdx": [
 		"./src/pages/articles/react-components.mdx",
 		"src_pages_articles_react-components_mdx"

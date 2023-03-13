@@ -4,9 +4,9 @@ import Image from 'next/image'
 import { Card } from '@/components/Card'
 import { SimpleLayout } from '@/components/SimpleLayout'
 import logoPlexus from '@/images/logos/plexus.svg'
-import logoSheep from '@/images/logos/sheep.jpg'
+import logoSheep from '@/images/logos/sheep.png'
 import logoRethink from '@/images/logos/rethink.png'
-import logoincommon from '@/images/logos/incommon.svg'
+import logoincommon from '@/images/logos/incommon.png'
 
 const projects = [
   {
@@ -32,7 +32,7 @@ const projects = [
   {
     name: 'Rethink',
     description:
-      'A space for real conversations and deeper connections. Build with react-native, react-query, supabase.',
+      'A space for real conversations and deeper connections. Build with react-native, mongoDB.',
     link: {
       href: 'https://github.com/annschulte/rethink',
       label: 'github.com',
@@ -40,11 +40,10 @@ const projects = [
     logo: logoRethink,
   },
   {
-    name: 'incommon',
-    description:
-      'Find internet speeds, noise, seating and more for your workday needs. Built with CRA, appwrite, styled-components.',
+    name: 'Stava Integration',
+    description: 'An example app to use the Stava API and get athletes data.',
     link: {
-      href: 'https://github.com/annschulte/incommon',
+      href: 'https://github.com/annschulte/stava-integration',
       label: 'github.com',
     },
     logo: logoincommon,
